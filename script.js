@@ -3,6 +3,7 @@ const canvas = document.getElementById("canvas");
 const con = canvas.getContext("2d");
 const asciiout = document.getElementById("ascii");
 const presets = {normal: "@%#&$MW8B0XKRqpZUdhmvyc*+=~-_;:,. ", simple: "@%#*+=-:. ", block: "█▓▒░ ", minimal: "....    "};
+let copyts = document.getElementById("copyts");
 let presetsel = document.getElementById("preset");
 let img = null;
 
@@ -20,7 +21,8 @@ upload.addEventListener("change", () => {
 
 presetsel.addEventListener("change", () => {
     if(img) convertascii()
-})
+});
+
 
 function convertascii() {
     const chars = presets[presetsel.value];
@@ -56,3 +58,14 @@ function convertascii() {
     }
     asciiout.textContent = ascii;
 }
+
+
+if (copyts){
+    copyts.addEventListener("click", () => {
+        navigator.clipboard.writeText(asciiout.textContent);
+        copyts.textContent = "copied!";
+        setTimeout(() => {
+            copyts.textContent = "copy";
+        }, 1500);
+    })
+};
