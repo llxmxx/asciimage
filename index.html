@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>asciimage</title>
 </head>
 <body>
     <h1>image to ascii</h1>
-    <select name="preset" id="preset">
-        <option value="normal">normal</option>
-        <option value="simple">simple</option>
-        <option value="block">block</option>
-        <option value="minimal">minimal</option>
-    </select>
     <input type="file" id="upload" accept="image/*">
+    <br>
+    <select name="preset" id="preset">
+        <option value="simple">simple</option>
+        <option value="normal">try</option>
+        <option value="block">block</option>
+        <option value="minimal">dotdotdot</option>
+    </select>
+    <br>
     <canvas id="canvas"></canvas>
     <pre id="ascii"></pre>
     <script src="script.js"></script>

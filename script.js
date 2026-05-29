@@ -48,5 +48,11 @@ function convertascii() {
         }
         ascii += '\n';
     }
+    if (presetsel.value==="minimal"){
+        asciiout.style.fontWeight = 900;
+    }
+    else{
+        asciiout.style.fontWeight = 400;
+    }
     asciiout.textContent = ascii;
 }
