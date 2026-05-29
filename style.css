@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+*::selection{
+    background-color: #E0D9D9;
+    color:#0f0f10;
+}
+
 body{
     min-height: 100vh;
     background: #0f0f10;
@@ -22,6 +27,8 @@ h1{
     font-weight: 600;
     margin-bottom: 20px;
     letter-spacing: -2px;
+    background-color: #E0D9D9;
+    color:#0f0f10;
 }
 
 label{
@@ -32,24 +39,20 @@ label{
     font-size: 0.9rem;
 }
 
-select, input[type='file'] {
-    background: #111114;
-    color: #E0D9D9;
-    border: 1px solid #2f2f35;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-family: inherit;
+#upload {
+    align-self: center;
 }
 
 #ascii{
     white-space: pre;
-    font-size: 5px;
-    line-height: 5px;
+    font-size: 4px;
+    line-height: 4px;
     margin: 30px;
     max-width: 100%;
 }
 
 .ascii-con{
+    display:none;
     border-radius: 24px;
     background: #E0D9D9;
     color: #1A1A1D;
@@ -83,4 +86,38 @@ select, input[type='file'] {
 
 canvas{
     display: none;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 30px;
+    padding: 20px, 24px;
+    border-radius: 20px;
+}
+
+input{
+    cursor: pointer;
+}
+
+input[type='checkbox']{
+    width:16px;
+    height: 16px;
+}
+
+input[type='range']{
+    width: 140px;
+}
+
+#contrastval{
+    width:50px;
+    font-size: 0.85rem;
+}
+
+.ascii-con pre::selection, h1::selection{
+    background-color: #0f0f10;
+    color:#E0D9D9;
 }

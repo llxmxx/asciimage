@@ -3,7 +3,11 @@ const canvas = document.getElementById("canvas");
 const con = canvas.getContext("2d");
 const asciiout = document.getElementById("ascii");
 const presets = {normal: "@%#&$MW8B0XKRqpZUdhmvyc*+=~-_;:,. ", simple: "@%#*+=-:. ", block: "█▓▒░ ", minimal: "....    "};
-let copyts = document.getElementById("copyts");
+const copyts = document.getElementById("copyts");
+const contrast = document.getElementById("contrast");
+const contrastval = document.getElementById("contrastval");
+const invert = document.getElementById("invert");
+const asciicon = document.querySelector(".ascii-con");
 let presetsel = document.getElementById("preset");
 let img = null;
 
@@ -14,6 +18,7 @@ upload.addEventListener("change", () => {
     const currimg = new Image();
     currimg.src = URL.createObjectURL(file);
     currimg.onload = () => {
+        asciicon.style.display = "block";
         img = currimg;
         convertascii();
     };
@@ -23,6 +28,24 @@ presetsel.addEventListener("change", () => {
     if(img) convertascii()
 });
 
+if (copyts){
+    copyts.addEventListener("click", () => {
+        navigator.clipboard.writeText(asciiout.textContent);
+        copyts.textContent = "copied!";
+        setTimeout(() => {
+            copyts.textContent = "copy";
+        }, 1500);
+    })
+};
+
+contrast.addEventListener("input", () => {
+    contrastval.textContent = contrast.value;
+    if(img) convertascii();
+});
+
+invert.addEventListener("change", () => {
+    if(img) convertascii();
+});
 
 function convertascii() {
     const chars = presets[presetsel.value];
@@ -44,7 +67,13 @@ function convertascii() {
             const g = pixels[index + 1];
             const b = pixels[index + 2];
 
-            const brightness = 0.299*r + 0.587*g + 0.114*b;
+            let brightness = 0.299*r + 0.587*g + 0.114*b;
+            const contrastValue = parseInt(contrast.value);
+            brightness = (brightness-128)*(contrastValue/100)+128;
+            brightness = Math.max(0, Math.min(255, brightness));
+            if(invert.checked){
+                brightness = 255-brightness;
+            }
             const charIndex = Math.floor((brightness/255)*(chars.length-1));
             ascii += chars[charIndex];
         }
@@ -58,14 +87,3 @@ function convertascii() {
     }
     asciiout.textContent = ascii;
 }
-
-
-if (copyts){
-    copyts.addEventListener("click", () => {
-        navigator.clipboard.writeText(asciiout.textContent);
-        copyts.textContent = "copied!";
-        setTimeout(() => {
-            copyts.textContent = "copy";
-        }, 1500);
-    })
-};
